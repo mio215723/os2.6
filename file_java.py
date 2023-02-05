@@ -13,7 +13,7 @@ def searchDirectory(files):
     for i in files:
         fileType = os.path.isdir(i)
         if(fileType != True):
-            if(i[-3:] == ".py"):
+            if(i[-5:] == ".java"):
                 returnWC = wordCount(i)
                 # 単語数とファイル名の出力
                 print(str(returnWC[0]) + " " + str(returnWC[1]) + " " + str(returnWC[2]) + "  " + i)

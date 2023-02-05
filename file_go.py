@@ -3,7 +3,7 @@ import os
 
 def main():
     # print(glob.glob("/Users/mio/subject/prog1/temp/*"))
-    returnTotal = searchDirectory(glob.glob("/Users/mio/subject/*"))
+    returnTotal = searchDirectory(glob.glob("/Users/mio/src/go/hello*"))
     print(str(returnTotal[0]) + " " + str(returnTotal[1]) + " " + str(returnTotal[2]) + "   total")
 
 def searchDirectory(files):
@@ -13,7 +13,7 @@ def searchDirectory(files):
     for i in files:
         fileType = os.path.isdir(i)
         if(fileType != True):
-            if(i[-3:] == ".py"):
+            if(i[-3:] == ".go"):
                 returnWC = wordCount(i)
                 # 単語数とファイル名の出力
                 print(str(returnWC[0]) + " " + str(returnWC[1]) + " " + str(returnWC[2]) + "  " + i)
