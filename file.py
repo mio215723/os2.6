@@ -1,33 +1,44 @@
 import glob
+import os
 
 def main():
     # print(glob.glob("/Users/mio/subject/prog1/temp/*"))
-    totalWord = searchDirectory(glob.glob("/Users/mio/subject/*"))
-    print(str(totalWord) + "   total")
+    returnTotal = searchDirectory(glob.glob("/Users/mio/subject/*"))
+    print(str(returnTotal[0]) + " " + str(returnTotal[1]) + " " + str(returnTotal[2]) + "   total")
 
 def searchDirectory(files):
     allSumWord = 0
+    allSumRow = 0
+    allSumByte = 0
     for i in files:
         fileName = i.split("/")
         if("." in fileName[-1]):
             if(i[-3:] == ".py"):
-                sumWord = wordCount(i)
+                returnWC = wordCount(i)
                 # 単語数とファイル名の出力
-                print(str(sumWord) + "  " + i)
-                allSumWord += sumWord
+                print(str(returnWC[0]) + " " + str(returnWC[1]) + " " + str(returnWC[2]) + "  " + i)
+                allSumRow += returnWC[0]
+                allSumWord += returnWC[1]
+                allSumByte += returnWC[2]
         else:        
-            allSumWord += searchDirectory(glob.glob(i + "/*"))
-    return allSumWord
+            returnSum = searchDirectory(glob.glob(i + "/*"))
+            allSumRow += returnSum[0]
+            allSumWord += returnSum[1]
+            allSumByte += returnSum[2]
+    return allSumRow,allSumWord,allSumByte
 
         
 def wordCount(fileName):
     f = open(fileName, 'r')
     lines = f.readlines()
-    sumWord=0
+    sumByte = os.path.getsize(fileName)
+    sumWord = 0
+    sumRow=len(lines)#行数取得
     for c in lines:
-        sumWord += len(c)
+        # sumByte += len(c)
+        sumWord += len(c.split())
     f.close()
-    return sumWord
+    return sumRow,sumWord,sumByte
     
     
 if __name__ == "__main__":
